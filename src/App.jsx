@@ -1,5 +1,4 @@
 import './App.css';
-import { useState, useEffect } from 'react';
 import axios from 'axios';
 
 const BASE_URL = 'https://staging.dracoon.com/api/v4';
@@ -10,11 +9,9 @@ const _initialUploadFile = {
 	data: '',
 	name: ''
 };
-const FILE_NAME = 'test.png';
+const FILE_NAME = 'photographer.jpg';
 
 function App() {
-	const [uploadFile, setUploadFile] = useState({ ..._initialUploadFile });
-
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		(async () => {
@@ -26,30 +23,17 @@ function App() {
 				directS3Upload: true,
 				name: FILE_NAME,
 				parentId: PARENT_ID,
-				size: 20000
+				size: 2491865
 			}, headers);
 			const data = response.data;
 			console.log(data);
 		})();
 	};
 
-	const handleFileChange = (e) => {
-		const file = e.target.files[0];
-		const _uploadFile = {
-			name: file.name,
-			preview: URL.createObjectURL(file),
-			data: e.target.files[0]
-		};
-		setUploadFile(_uploadFile);
-	};
-
 	return (
 		<div className="App">
 			<h1>Upload Test</h1>
 			<form onSubmit={handleSubmit}>
-				<div className="row">
-					<input type="file" onChange={handleFileChange}></input>
-				</div>
 				<div className="row">
 					<button type="submit">Submit</button>
 				</div>
